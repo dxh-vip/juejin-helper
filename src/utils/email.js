@@ -6,6 +6,8 @@ const email = async ({ title = '', content = '' } = {}) => {
     const suffix = /@(?<suffix>.*)/.exec(EMAIL).groups.suffix
     const options = {
       host: `smtp.${suffix}`,
+      port: 465,
+      secure: true,
       auth: {
         user: EMAIL,
         pass: AUTHORIZATION_CODE,

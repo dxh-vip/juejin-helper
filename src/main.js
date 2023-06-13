@@ -45,7 +45,6 @@ const main = async () => {
   } catch {
     throw new Error('登录失败, 请尝试更新 Cookies')
   }
-  console.log(000,growth);
   // 签到
   const checkIn = await juejin.getTodayStatus()
 
@@ -58,7 +57,6 @@ const main = async () => {
 
   // 签到天数
   const counts = await juejin.getCounts()
- console.log(111,growth);
   growth.contCount = counts.cont_count
   growth.sumCount = counts.sum_count
 
@@ -74,7 +72,6 @@ const main = async () => {
     growth.dipValue = dipLuckyResult.dip_value
     growth.luckyValue = dipLuckyResult.total_value
   }
-   console.log(222,growth);
   // 免费抽奖
   const lotteryConfig = await juejin.getLotteryConfig()
   growth.freeCount = lotteryConfig.free_count || 0
@@ -88,34 +85,32 @@ const main = async () => {
 
   // 当前矿石数
   growth.sumPoint = await juejin.getCurrentPoint()
-  console.log(333,growth);
   // BugFix
-  const notCollectBug = await juejin.getNotCollectBug()
+  //   const notCollectBug = await juejin.getNotCollectBug()
 
-  if (notCollectBug.length > 0) {
-    const requests = notCollectBug.map(bug => {
-      return async () => {
-        await juejin.collectBug(bug)
-        await wait(getRandomArbitrary(1000, 1500))
-      }
-    })
+  //   if (notCollectBug.length > 0) {
+  //     const requests = notCollectBug.map(bug => {
+  //       return async () => {
+  //         await juejin.collectBug(bug)
+  //         await wait(getRandomArbitrary(1000, 1500))
+  //       }
+  //     })
 
-    for (const request of requests) {
-      await request()
+  //     for (const request of requests) {
+  //       await request()
 
-      growth.collectBugCount++
-    }
+  //       growth.collectBugCount++
+  //     }
 
-    growth.collectedBug = true
-  }
-  pushMessage({
+  //     growth.collectedBug = true
+  //   }
+    pushMessage({
     type: 'info',
     message: message(),
   })
 }
 
 main().catch(error => {
-  console.log('catch-error',error);
   pushMessage({
     type: 'error',
     message: error.stack,

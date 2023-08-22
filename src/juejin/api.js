@@ -9,7 +9,7 @@ class Api {
    * @desc 用户信息
    * @returns {Promise<*>}
    * {
-   *   user_name: String 用户名
+   *   user_name: String 用户
    * }
    */
   getUser() {
